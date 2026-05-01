@@ -7,8 +7,10 @@
     <!-- Shared layout: breadcrumbs + sidebar + slotted main content  -->
     <!-- ============================================================ -->
     <template id="public_booking_layout" name="Public Booking Layout">
-        <t t-call="web.layout">
+        <t t-call="portal.frontend_layout">
             <t t-set="title" t-value="booking_type.name" />
+            <t t-set="no_header" t-value="False" />
+            <t t-set="no_footer" t-value="False" />
             <div class="o_booking_public container my-4">
                 <div class="row mb-3">
                     <div class="col-12 col-lg-8">
@@ -408,7 +410,7 @@
     <!-- Cancelled (terminal page)                                    -->
     <!-- ============================================================ -->
     <template id="public_booking_cancelled" name="Public Booking - Cancelled">
-        <t t-call="web.layout">
+        <t t-call="portal.frontend_layout">
             <t t-set="title" t-value="'Booking cancelled'" />
             <div class="container my-5">
                 <div class="row justify-content-center">

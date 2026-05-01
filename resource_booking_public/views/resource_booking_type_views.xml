@@ -10,7 +10,21 @@
             <xpath expr="//group[@name='main']" position="after">
                 <group name="public_booking" string="Public Booking">
                     <field name="is_public"/>
-                    <field name="public_warning_msg" colspan="2"/>
+                    <field
+                        name="public_url"
+                        widget="CopyClipboardChar"
+                        readonly="1"
+                        invisible="not is_public"
+                    />
+                    <button
+                        name="action_regenerate_access_token"
+                        type="object"
+                        string="Regenerate Share Link"
+                        class="btn-link"
+                        confirm="Regenerating the token will invalidate the previously shared link. Continue?"
+                        invisible="not is_public"
+                    />
+                    <field name="public_warning_msg" colspan="2" invisible="not is_public"/>
                 </group>
             </xpath>
         </field>

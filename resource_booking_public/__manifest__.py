@@ -4,7 +4,7 @@
 {
     "name": "Resource Booking Public",
     "summary": "Allow public anonymous users to book resources via shared links",
-    "version": "18.0.1.4.1",
+    "version": "18.0.1.4.2",
     "development_status": "Alpha",
     "category": "Appointments",
     "website": "https://github.com/OCA/calendar",

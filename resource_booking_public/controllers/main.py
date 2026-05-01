@@ -69,6 +69,8 @@ class PublicBooking(portal.CustomerPortal):
                     "partner_id": partner.id,
                     "booking_id": booking.id,
                     "client_order_ref": _("Booking #%s") % booking.id,
+                    "require_signature": False,
+                    "require_payment": True,
                     "order_line": [
                         (
                             0,

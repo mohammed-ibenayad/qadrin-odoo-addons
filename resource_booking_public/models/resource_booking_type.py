@@ -25,6 +25,15 @@ class ResourceBookingType(models.Model):
         help="Optional warning message displayed on the public booking page "
         "(e.g., cancellation policy, terms of service).",
     )
+    product_id = fields.Many2one(
+        "product.product",
+        string="Service Product",
+        domain="[('sale_ok', '=', True)]",
+        help="Optional billable service product. When set, confirming a public "
+        "booking creates a sale order with this product and redirects the "
+        "customer to its payment page. The booking is auto-confirmed when "
+        "the sale order is paid/confirmed.",
+    )
     access_token = fields.Char(
         string="Access Token",
         copy=False,

@@ -17,6 +17,11 @@ class ResourceBooking(models.Model):
         string="Manage Link",
         compute="_compute_manage_url",
     )
+    sale_order_ids = fields.One2many(
+        "sale.order",
+        inverse_name="booking_id",
+        string="Sale Orders",
+    )
 
     @api.depends("access_token")
     def _compute_manage_url(self):

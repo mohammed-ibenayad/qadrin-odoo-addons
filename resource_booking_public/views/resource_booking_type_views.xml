@@ -24,6 +24,7 @@
                         confirm="Regenerating the token will invalidate the previously shared link. Continue?"
                         invisible="not is_public"
                     />
+                    <field name="product_id" invisible="not is_public"/>
                     <field name="public_warning_msg" colspan="2" invisible="not is_public"/>
                 </group>
             </xpath>

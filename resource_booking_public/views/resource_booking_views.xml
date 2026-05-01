@@ -13,6 +13,12 @@
                     widget="CopyClipboardChar"
                     readonly="1"
                 />
+                <field
+                    name="sale_order_ids"
+                    readonly="1"
+                    widget="many2many_tags"
+                    invisible="not sale_order_ids"
+                />
             </field>
         </field>
     </record>

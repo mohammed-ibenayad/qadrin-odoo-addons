@@ -82,7 +82,8 @@ class PublicBooking(portal.CustomerPortal):
         ["/book/<string:token>", "/book/<string:token>/<int:year>/<int:month>"],
         type="http",
         auth="public",
-        website=False,
+        website=True,
+        sitemap=False,
     )
     def public_booking_calendar(
         self, token, year=None, month=None, error=None, **kwargs
@@ -115,6 +116,8 @@ class PublicBooking(portal.CustomerPortal):
         type="http",
         auth="public",
         methods=["POST"],
+        website=True,
+        sitemap=False,
     )
     def public_booking_details(
         self, token, slot=None, name=None, email=None, phone=None, **kwargs
@@ -151,6 +154,8 @@ class PublicBooking(portal.CustomerPortal):
         type="http",
         auth="public",
         methods=["POST"],
+        website=True,
+        sitemap=False,
     )
     def public_booking_confirm(
         self, token, slot, name, email, phone=None, **kwargs
@@ -202,7 +207,8 @@ class PublicBooking(portal.CustomerPortal):
         ["/book/manage/<string:token>"],
         type="http",
         auth="public",
-        website=False,
+        website=True,
+        sitemap=False,
     )
     def public_booking_manage(self, token, message=None, **kwargs):
         booking = self._get_booking_by_token(token)
@@ -228,7 +234,8 @@ class PublicBooking(portal.CustomerPortal):
         ],
         type="http",
         auth="public",
-        website=False,
+        website=True,
+        sitemap=False,
     )
     def public_booking_reschedule(
         self, token, year=None, month=None, error=None, **kwargs
@@ -261,6 +268,8 @@ class PublicBooking(portal.CustomerPortal):
         type="http",
         auth="public",
         methods=["POST"],
+        website=True,
+        sitemap=False,
     )
     def public_booking_reschedule_save(self, token, slot=None, **kwargs):
         booking = self._get_booking_by_token(token)
@@ -285,6 +294,8 @@ class PublicBooking(portal.CustomerPortal):
         type="http",
         auth="public",
         methods=["GET", "POST"],
+        website=True,
+        sitemap=False,
     )
     def public_booking_cancel(self, token, **kwargs):
         booking = self._get_booking_by_token(token)

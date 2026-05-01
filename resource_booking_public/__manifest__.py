@@ -4,7 +4,7 @@
 {
     "name": "Resource Booking Public",
     "summary": "Allow public anonymous users to book resources via shared links",
-    "version": "18.0.1.2.0",
+    "version": "18.0.1.2.1",
     "development_status": "Alpha",
     "category": "Appointments",
     "website": "https://github.com/OCA/calendar",
@@ -14,6 +14,7 @@
     "installable": True,
     "depends": [
         "resource_booking",
+        "portal",
     ],
     "data": [
         "security/ir.model.access.csv",

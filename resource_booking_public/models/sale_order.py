@@ -22,3 +22,11 @@ class SaleOrder(models.Model):
             if booking and booking.state in ("pending", "scheduled"):
                 booking.sudo().action_confirm()
         return result
+
+    def _action_cancel(self):
+        result = super()._action_cancel()
+        for order in self:
+            booking = order.booking_id
+            if booking and booking.state != "canceled":
+                booking.sudo().action_cancel()
+        return result

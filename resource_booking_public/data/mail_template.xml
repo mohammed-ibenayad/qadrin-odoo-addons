@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2024 Odoo Community Association (OCA)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <data noupdate="1">
+        <record id="mail_template_booking_confirmation" model="mail.template">
+            <field name="name">Public Booking: Confirmation</field>
+            <field name="model_id" ref="resource_booking.model_resource_booking"/>
+            <field name="email_from">{{ (object.company_id.email_formatted or user.email_formatted or '') }}</field>
+            <field name="email_to">{{ ','.join(object.partner_ids.mapped('email')) }}</field>
+            <field name="subject">Your booking is confirmed: {{ object.type_id.name }}</field>
+            <field name="lang">{{ object.partner_ids[:1].lang or 'en_US' }}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif;">
+                    <p>
+                        Hello
+                        <t t-out="object.partner_ids[:1].name or 'there'"/>,
+                    </p>
+                    <p>
+                        Your booking
+                        <strong t-out="object.type_id.name"/>
+                        is confirmed.
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>When:</strong>
+                            <t t-out="format_datetime(object.start)"/>
+                        </li>
+                        <li>
+                            <strong>Duration:</strong>
+                            <t t-out="object.duration"/>
+                            hour(s)
+                        </li>
+                    </ul>
+                    <p style="margin-top: 24px;">
+                        <a t-att-href="object.manage_url"
+                           style="background-color: #714B67; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block;">
+                            Manage your booking
+                        </a>
+                    </p>
+                    <p style="color: #888; font-size: 12px;">
+                        Use this link to reschedule or cancel your booking.
+                    </p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -2,168 +2,128 @@
 <!-- Copyright 2024 Odoo Community Association (OCA)
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <data>
-    <template id="public_booking_page" name="Public Booking Page">
+
+    <!-- ============================================================ -->
+    <!-- Shared layout: breadcrumbs + sidebar + slotted main content  -->
+    <!-- ============================================================ -->
+    <template id="public_booking_layout" name="Public Booking Layout">
         <t t-call="web.layout">
             <t t-set="title" t-value="booking_type.name" />
-            <div class="o_booking_public">
-                <div class="container my-4">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-md-10 col-lg-8">
-                            <h1 t-out="booking_type.name" />
-                            <p class="text-muted" t-if="booking_type.requester_advice">
-                                <t t-out="booking_type.requester_advice" />
-                            </p>
-
-                            <!-- Warning message -->
-                            <div
-                                t-if="booking_type.public_warning_msg"
-                                class="alert alert-info"
-                                role="alert"
+            <div class="o_booking_public container my-4">
+                <div class="row mb-3">
+                    <div class="col-12 col-lg-8">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a
+                                t-att-href="back_url or '#'"
+                                t-att-class="'text-muted text-decoration-none' + ('' if back_url else ' invisible')"
                             >
-                                <span t-field="booking_type.public_warning_msg" />
-                            </div>
-
-                            <!-- Booking form -->
-                            <form
-                                method="post"
-                                t-att-action="'/book/%s/confirm' % access_token"
-                                class="booking-form"
-                            >
-                                <input
-                                    type="hidden"
-                                    name="csrf_token"
-                                    t-att-value="request.csrf_token()"
-                                />
-                                <input
-                                    type="hidden"
-                                    name="slot"
-                                    id="selected_slot"
-                                    required="True"
-                                />
-
-                                <!-- User details -->
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <h3 class="mb-0">Your Details</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row g-3">
-                                            <div class="col-md-6">
-                                                <label
-                                                    for="name"
-                                                    class="form-label"
-                                                >Name *</label>
-                                                <input
-                                                    type="text"
-                                                    name="name"
-                                                    id="name"
-                                                    class="form-control"
-                                                    required="True"
-                                                    t-att-value="name or ''"
-                                                />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label
-                                                    for="email"
-                                                    class="form-label"
-                                                >Email *</label>
-                                                <input
-                                                    type="email"
-                                                    name="email"
-                                                    id="email"
-                                                    class="form-control"
-                                                    required="True"
-                                                    t-att-value="email or ''"
-                                                />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label
-                                                    for="phone"
-                                                    class="form-label"
-                                                >Phone</label>
-                                                <input
-                                                    type="tel"
-                                                    name="phone"
-                                                    id="phone"
-                                                    class="form-control"
-                                                    t-att-value="phone or ''"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Calendar -->
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="mb-0">Select a Time Slot</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <t t-call="resource_booking_public.scheduling_calendar_public" />
-                                    </div>
-                                </div>
-                            </form>
+                                <i class="fa fa-chevron-left me-1" />
+                                Back
+                            </a>
+                            <nav aria-label="breadcrumb" t-if="step">
+                                <ol class="breadcrumb mb-0">
+                                    <li t-att-class="'breadcrumb-item' + (' active fw-bold' if step == 'date' else '')">
+                                        Date &amp; time
+                                    </li>
+                                    <li t-att-class="'breadcrumb-item' + (' active fw-bold' if step == 'details' else '')">
+                                        Details
+                                    </li>
+                                    <li t-att-class="'breadcrumb-item' + (' active fw-bold' if step == 'done' else '')">
+                                        Confirmed
+                                    </li>
+                                </ol>
+                            </nav>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <t t-if="error">
+                            <div class="alert alert-danger" role="alert">
+                                <t t-out="error" />
+                            </div>
+                        </t>
+                        <t t-out="0" />
+                    </div>
+                    <aside class="col-12 col-lg-4 mt-4 mt-lg-0">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3" t-out="booking_type.name" />
+                                <div class="text-muted small text-uppercase">
+                                    Booking details
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-clock-o me-2" />
+                                    <span
+                                        t-field="booking_type.duration"
+                                        t-options='{"widget": "float_time"}'
+                                    /> h
+                                </div>
+                                <t t-if="selected_slot">
+                                    <div class="text-muted small text-uppercase mt-3">
+                                        Date &amp; time
+                                    </div>
+                                    <div>
+                                        <i class="fa fa-calendar me-2" />
+                                        <strong t-out="selected_slot.strftime('%a %d %b %Y')" />
+                                    </div>
+                                    <div class="ms-4" t-out="selected_slot.strftime('%H:%M')" />
+                                </t>
+                            </div>
+                        </div>
+                    </aside>
                 </div>
             </div>
         </t>
     </template>
 
-    <!-- Simplified scheduling calendar for public use (no modals, direct form submit) -->
-    <template id="scheduling_calendar_public" name="Public Resource Booking Calendar">
+    <!-- ============================================================ -->
+    <!-- Reusable calendar widget (used by step 1 and reschedule)     -->
+    <!-- ============================================================ -->
+    <template id="calendar_widget" name="Public Booking Calendar Widget">
         <t t-set="date_format" t-value="res_lang.date_format" />
         <t t-set="time_format" t-value="res_lang.time_format.replace(':%S', '')" />
         <t t-set="start_next" t-value="start + relativedelta(months=1)" />
         <t t-set="start_previous" t-value="start - relativedelta(months=1)" />
         <div class="o_booking_calendar">
-            <div
-                class="alert alert-danger"
-                t-if="not slots"
-            >
+            <div class="alert alert-warning" t-if="not slots">
                 No free slots found this month.
                 <a
-                    t-att-href="'/book/%s/%d/%d' % (access_token, start_next.year, start_next.month)"
+                    t-att-href="'%s/%d/%d' % (calendar_url_pattern, start_next.year, start_next.month)"
                     class="alert-link"
                 >
                     Try next month
                     <i class="fa fa-chevron-right" />
                 </a>
             </div>
-            <!-- Monthly calendar -->
             <div class="table-responsive-md">
                 <table class="table text-center">
-                    <thead class="table-dark">
+                    <thead class="table-light">
                         <tr>
                             <th class="text-start">
                                 <a
-                                    t-att-href="'/book/%s/%d/%d' % (access_token, start_previous.year, start_previous.month)"
-                                    class="btn btn-secondary"
+                                    t-att-href="'%s/%d/%d' % (calendar_url_pattern, start_previous.year, start_previous.month)"
+                                    class="btn btn-light btn-sm"
                                     title="Previous month"
                                 >
                                     <i class="fa fa-chevron-left" />
                                 </a>
                             </th>
-                            <th
-                                class="align-middle"
-                                colspan="5"
-                                t-out="start.strftime('%B %Y')"
-                            />
+                            <th class="align-middle" colspan="5" t-out="start.strftime('%B %Y')" />
                             <th class="text-end">
                                 <a
-                                    t-att-href="'/book/%s/%d/%d' % (access_token, start_next.year, start_next.month)"
-                                    class="btn btn-secondary"
+                                    t-att-href="'%s/%d/%d' % (calendar_url_pattern, start_next.year, start_next.month)"
+                                    class="btn btn-light btn-sm"
                                     title="Next month"
                                 >
                                     <i class="fa fa-chevron-right" />
                                 </a>
                             </th>
                         </tr>
-                    </thead>
-                    <thead>
                         <tr>
                             <t t-foreach="calendar.iterweekdays()" t-as="weekday">
                                 <th
+                                    class="text-muted small"
                                     t-att-title="weekday_names[str(weekday + 1)]"
                                     t-out="weekday_names[str(weekday + 1)][:3]"
                                 />
@@ -177,16 +137,11 @@
                         >
                             <tr>
                                 <t t-foreach="week" t-as="day">
-                                    <td
-                                        t-att-class="day.month != start.month and 'text-muted'"
-                                    >
-                                        <t
-                                            t-if="day.month == start.month and slots.get(day)"
-                                        >
-                                            <!-- Day dropdown -->
+                                    <td t-att-class="day.month != start.month and 'text-muted'">
+                                        <t t-if="day.month == start.month and slots.get(day)">
                                             <div class="dropdown">
                                                 <button
-                                                    class="btn btn-primary dropdown-toggle"
+                                                    class="btn btn-outline-primary dropdown-toggle"
                                                     type="button"
                                                     data-bs-toggle="dropdown"
                                                     aria-haspopup="true"
@@ -198,27 +153,23 @@
                                                     class="dropdown-menu slots-dropdown"
                                                     t-attf-aria-labelledby="dropdown-trigger-#{day.isoformat()}"
                                                 >
-                                                    <t
-                                                        t-foreach="slots[day]"
-                                                        t-as="slot"
-                                                    >
-                                                        <!-- Hour item to open confirmation -->
+                                                    <t t-foreach="slots[day]" t-as="slot_dt">
                                                         <button
                                                             class="dropdown-item slot-selector"
                                                             type="button"
-                                                            t-att-data-slot="slot.isoformat()"
+                                                            t-att-data-slot="slot_dt.isoformat()"
                                                             t-att-data-date="day.strftime(date_format)"
-                                                            t-att-data-time="slot.strftime(time_format)"
+                                                            t-att-data-time="slot_dt.strftime(time_format)"
                                                         >
                                                             <i class="fa fa-clock-o me-1" />
-                                                            <t t-out="slot.strftime(time_format)" />
+                                                            <t t-out="slot_dt.strftime(time_format)" />
                                                         </button>
                                                     </t>
                                                 </div>
                                             </div>
                                         </t>
                                         <t t-else="">
-                                            <t t-out="day.day" />
+                                            <span t-out="day.day" />
                                         </t>
                                     </td>
                                 </t>
@@ -227,62 +178,34 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="7">
-                                All times are displayed using this timezone:
+                            <td colspan="7" class="text-muted small">
+                                Times shown in
                                 <strong t-field="booking_type.resource_calendar_id.tz" />
                             </td>
                         </tr>
                     </tfoot>
                 </table>
             </div>
-
-            <!-- Selection confirmation -->
-            <div class="mt-4 p-3 border rounded bg-light">
-                <p class="mb-2">
-                    <i class="fa fa-info-circle me-1" />
-                    Selected slot:
-                </p>
-                <p class="mb-0">
-                    <strong id="selected_date_display">-</strong>
-                    <strong id="selected_time_display">-</strong>
-                </p>
+            <div class="mt-3 p-3 border rounded bg-light">
+                <div class="text-muted small text-uppercase">Selected slot</div>
+                <div>
+                    <strong id="selected_date_display">—</strong>
+                    <strong id="selected_time_display" class="ms-2">—</strong>
+                </div>
             </div>
-
-            <!-- Submit button -->
-            <div class="mt-4 text-center">
-                <button
-                    type="submit"
-                    class="btn btn-primary btn-lg"
-                    id="book_submit"
-                    disabled="True"
-                >
-                    <i class="fa fa-check me-2" />
-                    Confirm Booking
-                </button>
-            </div>
-
-            <!-- JavaScript for slot selection -->
-            <t t-set="date_format_js" t-value="date_format" />
-            <t t-set="time_format_js" t-value="time_format" />
             <script type="text/javascript">
-                document.addEventListener('DOMContentLoaded', function() {
-                    // Slot selector buttons
-                    document.querySelectorAll('.slot-selector').forEach(function(btn) {
-                        btn.addEventListener('click', function(e) {
+                document.addEventListener('DOMContentLoaded', function () {
+                    var slotInput = document.getElementById('selected_slot');
+                    var continueBtn = document.getElementById('continue_btn');
+                    var dateDisplay = document.getElementById('selected_date_display');
+                    var timeDisplay = document.getElementById('selected_time_display');
+                    document.querySelectorAll('.slot-selector').forEach(function (btn) {
+                        btn.addEventListener('click', function (e) {
                             e.preventDefault();
-                            var slot = btn.getAttribute('data-slot');
-                            var date = btn.getAttribute('data-date');
-                            var time = btn.getAttribute('data-time');
-
-                            // Update hidden input
-                            document.getElementById('selected_slot').value = slot;
-
-                            // Update display
-                            document.getElementById('selected_date_display').textContent = date + ' ';
-                            document.getElementById('selected_time_display').textContent = time;
-
-                            // Enable submit
-                            document.getElementById('book_submit').disabled = false;
+                            slotInput.value = btn.getAttribute('data-slot');
+                            dateDisplay.textContent = btn.getAttribute('data-date');
+                            timeDisplay.textContent = btn.getAttribute('data-time');
+                            if (continueBtn) continueBtn.disabled = false;
                         });
                     });
                 });
@@ -290,53 +213,220 @@
         </div>
     </template>
 
-    <template id="public_booking_success" name="Public Booking Success">
+    <!-- ============================================================ -->
+    <!-- Step 1 — Date &amp; time                                     -->
+    <!-- ============================================================ -->
+    <template id="public_booking_calendar" name="Public Booking - Date">
+        <t t-call="resource_booking_public.public_booking_layout">
+            <t t-if="booking_type.public_warning_msg">
+                <div class="alert alert-info">
+                    <span t-field="booking_type.public_warning_msg" />
+                </div>
+            </t>
+            <h2 t-if="is_reschedule">Reschedule your booking</h2>
+            <h2 t-else="">Select a date &amp; time</h2>
+            <p class="text-muted" t-if="booking_type.requester_advice and not is_reschedule">
+                <t t-out="booking_type.requester_advice" />
+            </p>
+            <form method="post" t-att-action="form_action">
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    t-att-value="request.csrf_token()"
+                />
+                <input type="hidden" name="slot" id="selected_slot" required="True" />
+                <t t-call="resource_booking_public.calendar_widget" />
+                <div class="mt-4 text-end">
+                    <button
+                        type="submit"
+                        class="btn btn-primary btn-lg"
+                        id="continue_btn"
+                        disabled="True"
+                    >
+                        Continue
+                        <i class="fa fa-chevron-right ms-2" />
+                    </button>
+                </div>
+            </form>
+        </t>
+    </template>
+
+    <!-- ============================================================ -->
+    <!-- Step 2 — Details                                             -->
+    <!-- ============================================================ -->
+    <template id="public_booking_details" name="Public Booking - Details">
+        <t t-call="resource_booking_public.public_booking_layout">
+            <h2>Add a few details about yourself</h2>
+            <form method="post" t-att-action="form_action">
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    t-att-value="request.csrf_token()"
+                />
+                <input type="hidden" name="slot" t-att-value="slot" />
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label for="name" class="form-label">Full name *</label>
+                        <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            class="form-control"
+                            required="True"
+                            t-att-value="name"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email *</label>
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            class="form-control"
+                            required="True"
+                            t-att-value="email"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input
+                            type="tel"
+                            name="phone"
+                            id="phone"
+                            class="form-control"
+                            t-att-value="phone"
+                        />
+                    </div>
+                </div>
+                <div class="mt-4 d-flex justify-content-between">
+                    <a t-att-href="back_url" class="btn btn-light">
+                        <i class="fa fa-chevron-left me-2" />
+                        Back
+                    </a>
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fa fa-check me-2" />
+                        Confirm booking
+                    </button>
+                </div>
+            </form>
+        </t>
+    </template>
+
+    <!-- ============================================================ -->
+    <!-- Manage page (post-confirmation, also reachable via email)    -->
+    <!-- ============================================================ -->
+    <template id="public_booking_manage" name="Public Booking - Manage">
+        <t t-call="resource_booking_public.public_booking_layout">
+            <t t-if="message == 'rescheduled'">
+                <div class="alert alert-success">
+                    <i class="fa fa-check-circle me-2" />
+                    Your booking has been rescheduled.
+                </div>
+            </t>
+            <t t-else="">
+                <div class="alert alert-success">
+                    <i class="fa fa-check-circle me-2" />
+                    Your booking is confirmed.
+                </div>
+            </t>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title" t-out="booking_type.name" />
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <i class="fa fa-calendar me-2 text-muted" />
+                            <strong t-out="booking.start.strftime('%A %d %B %Y')" />
+                            at
+                            <strong t-out="booking.start.strftime('%H:%M')" />
+                        </li>
+                        <li class="mb-2">
+                            <i class="fa fa-clock-o me-2 text-muted" />
+                            <span
+                                t-field="booking.duration"
+                                t-options='{"widget": "float_time"}'
+                            /> h
+                        </li>
+                        <li
+                            class="mb-2"
+                            t-if="booking.combination_id and booking.combination_id.name"
+                        >
+                            <i class="fa fa-user me-2 text-muted" />
+                            <span t-out="booking.combination_id.name" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="d-flex gap-2">
+                <a
+                    t-att-href="'/book/manage/%s/reschedule' % access_token"
+                    class="btn btn-outline-primary"
+                >
+                    <i class="fa fa-calendar me-2" />
+                    Reschedule
+                </a>
+                <a
+                    t-att-href="'/book/manage/%s/cancel' % access_token"
+                    class="btn btn-outline-danger"
+                >
+                    <i class="fa fa-times me-2" />
+                    Cancel booking
+                </a>
+            </div>
+        </t>
+    </template>
+
+    <!-- ============================================================ -->
+    <!-- Cancel confirmation                                          -->
+    <!-- ============================================================ -->
+    <template id="public_booking_cancel_confirm" name="Public Booking - Cancel Confirm">
+        <t t-call="resource_booking_public.public_booking_layout">
+            <h2>Cancel your booking?</h2>
+            <p class="text-muted">
+                This action cannot be undone. You can always book again later.
+            </p>
+            <form
+                method="post"
+                t-att-action="'/book/manage/%s/cancel' % access_token"
+            >
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    t-att-value="request.csrf_token()"
+                />
+                <div class="d-flex gap-2">
+                    <a t-att-href="back_url" class="btn btn-light">Keep booking</a>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-times me-2" />
+                        Yes, cancel
+                    </button>
+                </div>
+            </form>
+        </t>
+    </template>
+
+    <!-- ============================================================ -->
+    <!-- Cancelled (terminal page)                                    -->
+    <!-- ============================================================ -->
+    <template id="public_booking_cancelled" name="Public Booking - Cancelled">
         <t t-call="web.layout">
-            <t t-set="title" t-value="'Booking Confirmed'" />
+            <t t-set="title" t-value="'Booking cancelled'" />
             <div class="container my-5">
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8 col-lg-6 text-center">
-                        <div class="alert alert-success">
-                            <i class="fa fa-check-circle fa-3x mb-3" />
-                            <h2>Booking Confirmed!</h2>
+                        <div class="alert alert-secondary">
+                            <i class="fa fa-info-circle fa-3x mb-3" />
+                            <h2>Booking cancelled</h2>
                             <p class="lead">
                                 Your booking for
                                 <strong t-out="booking_type.name" />
-                                has been confirmed.
+                                has been cancelled.
                             </p>
                         </div>
-
-                        <div class="card mt-4">
-                            <div class="card-body">
-                                <h4 class="card-title">Booking Details</h4>
-                                <ul class="list-unstyled text-start">
-                                    <li class="mb-2">
-                                        <strong>Type:</strong>
-                                        <span t-out="booking_type.name" />
-                                    </li>
-                                    <li class="mb-2">
-                                        <strong>Date:</strong>
-                                        <span t-out="booking.start" t-options="{'widget': 'datetime'}" />
-                                    </li>
-                                    <li class="mb-2">
-                                        <strong>Duration:</strong>
-                                        <span t-field="booking.duration" t-options='{"widget": "float_time"}' />
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="mt-4">
-                            <a
-                                href="/"
-                                class="btn btn-primary"
-                            >
-                                Return to Homepage
-                            </a>
-                        </div>
+                        <a href="/" class="btn btn-primary">Return to homepage</a>
                     </div>
                 </div>
             </div>
         </t>
     </template>
+
 </data>

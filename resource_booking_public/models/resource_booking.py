@@ -13,14 +13,6 @@ def _default_access_token():
 class ResourceBooking(models.Model):
     _inherit = "resource.booking"
 
-    access_token = fields.Char(
-        string="Access Token",
-        copy=False,
-        readonly=True,
-        default=lambda self: _default_access_token(),
-        help="Secret token used in the public manage URL "
-        "(reschedule / cancel link).",
-    )
     manage_url = fields.Char(
         string="Manage Link",
         compute="_compute_manage_url",
@@ -39,6 +31,9 @@ class ResourceBooking(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
+        # access_token is inherited from portal.mixin but not auto-populated;
+        # ensure every booking has one so the public manage URL works
+        # immediately after creation.
         for vals in vals_list:
             if not vals.get("access_token"):
                 vals["access_token"] = _default_access_token()

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2024 Odoo Community Association (OCA)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<data>
+    <record id="view_resource_booking_form_inherit" model="ir.ui.view">
+        <field name="name">resource.booking.form.inherit</field>
+        <field name="model">resource.booking</field>
+        <field name="inherit_id" ref="resource_booking.resource_booking_view_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_ids" position="after">
+                <field name="anonymous_partner_name"/>
+            </field>
+        </field>
+    </record>
+</data>

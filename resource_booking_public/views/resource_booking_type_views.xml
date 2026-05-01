@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2024 Odoo Community Association (OCA)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<data>
+    <record id="view_resource_booking_type_form_inherit" model="ir.ui.view">
+        <field name="name">resource.booking.type.form.inherit</field>
+        <field name="model">resource.booking.type</field>
+        <field name="inherit_id" ref="resource_booking.resource_booking_type_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='main']" position="after">
+                <group name="public_booking" string="Public Booking">
+                    <field name="is_public"/>
+                    <field name="public_warning_msg" colspan="2"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</data>

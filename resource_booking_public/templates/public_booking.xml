@@ -26,7 +26,7 @@
                             <!-- Booking form -->
                             <form
                                 method="post"
-                                t-att-action="'/book/%d/confirm' % booking_type.id"
+                                t-att-action="'/book/%s/confirm' % access_token"
                                 class="booking-form"
                             >
                                 <input
@@ -123,7 +123,7 @@
             >
                 No free slots found this month.
                 <a
-                    t-att-href="'/book/%d/%d/%d' % (booking_type.id, start_next.year, start_next.month)"
+                    t-att-href="'/book/%s/%d/%d' % (access_token, start_next.year, start_next.month)"
                     class="alert-link"
                 >
                     Try next month
@@ -137,7 +137,7 @@
                         <tr>
                             <th class="text-start">
                                 <a
-                                    t-att-href="'/book/%d/%d/%d' % (booking_type.id, start_previous.year, start_previous.month)"
+                                    t-att-href="'/book/%s/%d/%d' % (access_token, start_previous.year, start_previous.month)"
                                     class="btn btn-secondary"
                                     title="Previous month"
                                 >
@@ -151,7 +151,7 @@
                             />
                             <th class="text-end">
                                 <a
-                                    t-att-href="'/book/%d/%d/%d' % (booking_type.id, start_next.year, start_next.month)"
+                                    t-att-href="'/book/%s/%d/%d' % (access_token, start_next.year, start_next.month)"
                                     class="btn btn-secondary"
                                     title="Next month"
                                 >

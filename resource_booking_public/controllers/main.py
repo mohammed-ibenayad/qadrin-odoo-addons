@@ -60,6 +60,32 @@ class PublicBooking(portal.CustomerPortal):
         slot_dt = isoparse(slot)
         return datetime.utcfromtimestamp(slot_dt.timestamp())
 
+    def _create_sale_order(self, booking, partner):
+        order = (
+            request.env["sale.order"]
+            .sudo()
+            .create(
+                {
+                    "partner_id": partner.id,
+                    "booking_id": booking.id,
+                    "client_order_ref": _("Booking #%s") % booking.id,
+                    "order_line": [
+                        (
+                            0,
+                            0,
+                            {
+                                "product_id": booking.type_id.product_id.id,
+                                "product_uom_qty": 1,
+                            },
+                        )
+                    ],
+                }
+            )
+        )
+        booking.sudo()._portal_ensure_token()
+        order._portal_ensure_token()
+        return order
+
     def _upsert_partner(self, name, email, phone=None):
         Partner = request.env["res.partner"].sudo()
         partner = Partner.search([("email", "=", email)], limit=1)
@@ -178,6 +204,9 @@ class PublicBooking(portal.CustomerPortal):
                     }
                 )
             )
+            if booking_type.product_id:
+                sale_order = self._create_sale_order(booking_sudo, partner)
+                return request.redirect(sale_order.get_portal_url())
             booking_sudo.action_confirm()
         except (UserError, ValidationError) as exc:
             return request.render(

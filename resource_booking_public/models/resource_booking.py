@@ -17,6 +17,11 @@ class ResourceBooking(models.Model):
         string="Manage Link",
         compute="_compute_manage_url",
     )
+    sale_order_ids = fields.One2many(
+        "sale.order",
+        inverse_name="booking_id",
+        string="Sale Orders",
+    )
 
     @api.depends("access_token")
     def _compute_manage_url(self):
@@ -38,3 +43,19 @@ class ResourceBooking(models.Model):
             if not vals.get("access_token"):
                 vals["access_token"] = _default_access_token()
         return super().create(vals_list)
+
+    def action_confirm(self):
+        result = super().action_confirm()
+        template = self.env.ref(
+            "resource_booking_public.mail_template_booking_confirmation",
+            raise_if_not_found=False,
+        )
+        if template:
+            for booking in self:
+                if booking.type_id.is_public and booking.partner_ids:
+                    template.sudo().send_mail(
+                        booking.id,
+                        force_send=False,
+                        email_layout_xmlid="mail.mail_notification_light",
+                    )
+        return result

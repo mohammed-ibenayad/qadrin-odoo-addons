@@ -2,11 +2,11 @@
 <!-- Copyright 2024 Odoo Community Association (OCA)
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
-    <data noupdate="1">
+    <data noupdate="0">
         <record id="mail_template_booking_confirmation" model="mail.template">
             <field name="name">Public Booking: Confirmation</field>
             <field name="model_id" ref="resource_booking.model_resource_booking"/>
-            <field name="email_from">{{ (object.company_id.email_formatted or user.email_formatted or '') }}</field>
+            <field name="email_from">{{ (object.type_id.company_id.email_formatted or user.email_formatted or '') }}</field>
             <field name="email_to">{{ ','.join(object.partner_ids.mapped('email')) }}</field>
             <field name="subject">Your booking is confirmed: {{ object.type_id.name }}</field>
             <field name="lang">{{ object.partner_ids[:1].lang or 'en_US' }}</field>

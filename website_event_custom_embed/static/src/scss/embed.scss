@@ -1,10 +1,48 @@
-// Custom embed wrapper on the public event detail page.
+// Clamp the custom embed inside the main column so it can't push the
+// sidebar to the next row. Editors paste arbitrary HTML/CSS into the
+// embed; some designs use 100vw, negative margins, or absolute
+// positioning which break the Bootstrap row.
 .o_wevent_event_custom_embed {
+    max-width: 100%;
+    width: 100%;
+    overflow: hidden;       // anything wider than the column is clipped
+    position: relative;     // contain absolutely-positioned children
+    box-sizing: border-box;
+
+    // Force everything inside to respect the column width. The * selector
+    // is heavy-handed but necessary because pasted designs frequently
+    // use width: 100vw, which on a Bootstrap col-lg-8 overflows by
+    // ~50% and pushes the sidebar below.
+    *,
+    *::before,
+    *::after {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    // Common offenders: media that ignores parent width.
+    img,
+    video,
     iframe,
     embed,
-    object {
-        max-width: 100%;
+    object,
+    canvas,
+    svg {
+        max-width: 100% !important;
+        height: auto;
     }
+
+    // Some pasted designs wrap everything in <section> with full-width
+    // backgrounds via 100vw. Neutralize that.
+    section {
+        width: auto !important;
+        max-width: 100%;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    // Strip outer margins that would create awkward spacing inside
+    // the column.
     > *:first-child {
         margin-top: 0;
     }

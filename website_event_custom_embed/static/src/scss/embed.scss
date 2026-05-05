@@ -1,42 +1,37 @@
 // =============================================================================
-// Custom embed layout — verified against the actual DOM on this install.
-// Parent of .o_wevent_event_custom_embed is #o_wevent_event_main_col.
+// Custom embed layout.
+//
+// Odoo 18 website_event renders the event detail page like this:
+//   .row
+//     > div.col.pe-xxl-5            // left flex column (no id)
+//         > #o_wevent_event_main_col   // inner wrapper holding description/embed
+//     > aside#o_wevent_event_main_sidebar.col-lg-4   // Register / dates / share
+//
+// When the embed contains content with intrinsic width (tables, fixed-width
+// blocks, long unbroken strings, etc.), the left `.col` (which is
+// `flex: 1 0 0%` with the default `min-width: auto`) refuses to shrink below
+// its content, pushing the col-lg-4 aside down to the next row.
+//
+// Fix: scope to event main pages where the embed wrapper exists, then
+//   1. force `min-width: 0` on the real flex column so it shrinks to fit,
+//   2. clamp the embed wrapper so its contents can't overflow horizontally.
 // =============================================================================
 
-// Force the main column wider when an embed is present inside it.
-// Without this override, the OCA `web` layout collapses the column to
-// ~330px on this install. We use :has() to only widen the column when
-// it actually contains an embed — events without embeds are unaffected.
-//
-// Bootstrap classes on the column are typically col-lg-8 col-12, but
-// some themes apply col-md-X / col-xl-X. Using flex-basis + max-width
-// directly bypasses whatever Bootstrap class is set.
-#o_wevent_event_main_col:has(> .o_wevent_event_custom_embed) {
-    @media (min-width: 992px) {
-        flex: 0 0 75%;
-        max-width: 75%;
+// Reach the real column via its inner wrapper. `:has()` is supported on every
+// browser Odoo 18 targets (Baseline 2023).
+#o_wevent_event_main:has(.o_wevent_event_custom_embed) {
+    .row > .col:has(#o_wevent_event_main_col) {
+        min-width: 0;
     }
 }
 
-// Sidebar gets the remaining 25% so the row stays balanced.
-// `.o_wevent_event_sidebar` is the standard class, but if it's named
-// differently here we may need to revise.
-.o_wevent_event_main_col:has(> .o_wevent_event_custom_embed) ~ .o_wevent_event_sidebar,
-#o_wevent_event_main_col:has(> .o_wevent_event_custom_embed) + div {
-    @media (min-width: 992px) {
-        flex: 0 0 25%;
-        max-width: 25%;
-    }
-}
-
-// Clamp the embed wrapper so its contents can't overflow horizontally
-// and push the sidebar to the next row.
 .o_wevent_event_custom_embed {
     max-width: 100%;
     width: 100%;
     overflow: hidden;
     position: relative;
     box-sizing: border-box;
+    min-width: 0;
 
     *,
     *::before,

@@ -17,12 +17,20 @@
 //   2. clamp the embed wrapper so its contents can't overflow horizontally.
 // =============================================================================
 
-// Reach the real column via its inner wrapper. `:has()` is supported on every
-// browser Odoo 18 targets (Baseline 2023).
-#o_wevent_event_main:has(.o_wevent_event_custom_embed) {
-    .row > .col:has(#o_wevent_event_main_col) {
-        min-width: 0;
-    }
+// Reach the real flex column without assuming its class. Any direct child of
+// the `.row` that contains the embed gets `min-width: 0` so it can shrink to
+// fit the row instead of forcing the col-lg-4 sidebar onto a new line.
+// `overflow: hidden` is a belt-and-braces guard for embeds whose own CSS
+// declares fixed widths or `min-width` on inner elements.
+// `:has()` is supported on every browser Odoo 18 targets (Baseline 2023).
+.row:has(.o_wevent_event_custom_embed) > * {
+    min-width: 0;
+}
+
+.row > *:has(> .o_wevent_event_custom_embed),
+.row > *:has(> * > .o_wevent_event_custom_embed),
+.row > *:has(> * > * > .o_wevent_event_custom_embed) {
+    overflow: hidden;
 }
 
 .o_wevent_event_custom_embed {

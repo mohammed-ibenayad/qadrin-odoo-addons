@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_form_inherit_embed" model="ir.ui.view">
+        <field name="name">event.event.form.inherit.embed_html</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="website_embed_html" string="Website Embed">
+                    <div class="alert alert-info" role="status" colspan="2">
+                        <strong>Paste raw HTML below.</strong>
+                        Whatever you paste is stored verbatim and rendered
+                        on the public event page, below the description, in
+                        the wide left column.
+                        <br/>
+                        Do <em>not</em> paste a full HTML document
+                        (<code>&lt;!DOCTYPE&gt;</code>, <code>&lt;html&gt;</code>,
+                        <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>) —
+                        only the body content, plus any
+                        <code>&lt;link&gt;</code> and <code>&lt;style&gt;</code>
+                        tags you need. CSS should be scoped under a wrapper
+                        class so it doesn't leak into the rest of the site.
+                    </div>
+                    <field name="embed_html"
+                           nolabel="1"
+                           widget="text"
+                           placeholder="&lt;link rel=&quot;stylesheet&quot; href=&quot;...&quot;&gt;&#10;&lt;style&gt;.my-design { ... }&lt;/style&gt;&#10;&lt;div class=&quot;my-design&quot;&gt;&#10;  &lt;!-- your content --&gt;&#10;&lt;/div&gt;"
+                           options="{'rows': 30}"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

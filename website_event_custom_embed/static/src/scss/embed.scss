@@ -1,0 +1,20 @@
+// Custom embed wrapper on the public event detail page.
+.o_wevent_event_custom_embed {
+    // Make sure embedded iframes (Maps, YouTube, custom designs) don't
+    // overflow the column on small screens.
+    iframe,
+    embed,
+    object {
+        max-width: 100%;
+    }
+
+    // Common pattern: a 16:9 responsive embed. Editors who paste
+    //   <div class="ratio ratio-16x9"><iframe ...></iframe></div>
+    // already get Bootstrap behavior; this just adds breathing room.
+    > *:first-child {
+        margin-top: 0;
+    }
+    > *:last-child {
+        margin-bottom: 0;
+    }
+}

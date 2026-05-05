@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+      Render the embed.
+
+      embed_html is a Text field (plain string), so we wrap it in
+      markupsafe.Markup() at render time to tell QWeb "this is already
+      safe HTML, don't escape it". Without Markup() the angle brackets
+      would come out as &lt; and &gt; on the public page.
+
+      We append AFTER the description so the order is:
+        1. event description (Odoo's normal HTML field)
+        2. our embed
+      both inside the same main column (`o_wevent_event_main`), so
+      they share width.
+    -->
+    <template id="event_description_full_inherit_embed"
+              inherit_id="website_event.event_description_full"
+              name="Event Page: Custom Embed">
+        <xpath expr="//div[@t-field='event.description']" position="after">
+            <div t-if="event.embed_html"
+                 class="o_wevent_event_custom_embed mt-4"
+                 id="o_wevent_event_custom_embed">
+                <t t-out="markupsafe.Markup(event.embed_html)"/>
+            </div>
+        </xpath>
+    </template>
+
+    <!--
+      Widen the main content column.
+
+      Default v18 layout: main col-lg-8, sidebar col-lg-4.
+      We change it to col-lg-9 / col-lg-3 so the embed has more
+      horizontal room. Sidebar still renders Location / Organizer /
+      Share at a comfortable narrower width.
+
+      If you want to revert to the default 8/4 split, set this
+      template's `active` flag to False in Settings → Technical → Views,
+      or remove this <template> block entirely.
+    -->
+    <template id="event_description_full_widen_main"
+              inherit_id="website_event.event_description_full"
+              name="Event Page: Wider Main Column">
+        <xpath expr="//div[hasclass('o_wevent_event_main')]"
+               position="attributes">
+            <attribute name="class">o_wevent_event_main col-lg-9</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('o_wevent_event_sidebar')]"
+               position="attributes">
+            <attribute name="class">o_wevent_event_sidebar col-lg-3</attribute>
+        </xpath>
+    </template>
+</odoo>

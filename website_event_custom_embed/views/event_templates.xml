@@ -3,10 +3,12 @@
     <!--
       Behavior:
       - Event has embed_html → description hidden, embed renders in its place
-      - Event has no embed_html → description renders normally, no embed div
+      - Event has no embed_html → description renders normally
 
-      Sidebar (Register, dates, Location, Organizer) is unaffected and
-      keeps its normal position to the right of the main column.
+      The xpath targets `o_wevent_event_main_col` because that's the
+      actual parent ID on this install (verified via DOM inspection).
+      Different OCA layouts use different class/ID names, so this is
+      the install-specific anchor.
     -->
     <template id="event_description_full_inherit_embed"
               inherit_id="website_event.event_description_full"

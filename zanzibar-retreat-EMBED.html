@@ -1,0 +1,702 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700;900;900&family=Caveat+Brush&family=Manrope:wght@300;400;500;600;700&family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+.fwh-zanzibar {
+  /* Mapped to Fly With Haifa homepage — sunset palette, no pink-rose tones */
+  --fwh-navy: #8C2A4A;        /* deep magenta (was navy) */
+  --fwh-marigold: #F2B33A;    /* saffron gold */
+  --fwh-crimson: #A22F0E;     /* terra-deep */
+  --fwh-magenta: #D85426;     /* terra (was pink-rose) */
+  --fwh-teal: #F2B33A;        /* saffron (was teal/magenta-rose) */
+  --fwh-deep-teal: #8C2A4A;   /* deep magenta (was deep teal) */
+  --fwh-cream: #FBEEDC;       /* cream */
+  --fwh-ivory: #FBEEDC;       /* cream */
+  --fwh-forest: #2A1410;      /* deep ink (was forest green) */
+  --fwh-orange: #D85426;      /* terra (crimson-orange) */
+  --fwh-mint: #F4DCC0;        /* linen (was mint) */
+  --fwh-cyan: #E58A1F;        /* ochre (was cyan) */
+  --fwh-purple: #8C2A4A;      /* deep magenta (was purple) */
+  --fwh-ink: #2A1410;         /* deep ink */
+  --fwh-pink-soft: #F4DCC0;   /* linen (was soft pink) */
+}.fwh-zanzibar * { box-sizing: border-box; margin: 0; padding: 0; }.fwh-zanzibar { scroll-behavior: smooth; }.fwh-zanzibar {
+  font-family: 'Manrope', sans-serif;
+  color: var(--fwh-ink);
+  background: var(--fwh-cream);
+  line-height: 1.65;
+  overflow-x: hidden;
+}.fwh-zanzibar .section { position: relative; overflow: hidden; }.fwh-zanzibar .split-headline { display: inline-flex; align-items: baseline; gap: 0.3em; flex-wrap: nowrap; }.fwh-zanzibar .split-headline .serif {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}.fwh-zanzibar .split-headline .script {
+  font-family: 'Caveat Brush', cursive;
+  font-size: 0.72em;
+  display: inline-block;
+  transform: translateY(0.15em) rotate(-3deg);
+  font-weight: 400;
+}/* ========================================
+   HERO — single calm focal point
+   ======================================== */.fwh-zanzibar .hero {
+  background: var(--fwh-deep-teal);
+  border: 14px solid var(--fwh-marigold);
+  outline: 4px solid var(--fwh-crimson);
+  outline-offset: -22px;
+  padding: 90px 40px 110px;
+  text-align: center;
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}.fwh-zanzibar .hero::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 110%, rgba(232,178,45,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 15% 30%, rgba(79,195,217,0.08) 0%, transparent 55%);
+  pointer-events: none;
+}.fwh-zanzibar .hero-leaves { position: absolute; inset: 0; pointer-events: none; opacity: 0.9; }.fwh-zanzibar .hero-leaves svg { position: absolute; }.fwh-zanzibar .leaf-tl { top: 20px; left: -50px; width: 340px; transform: rotate(-12deg); }.fwh-zanzibar .leaf-tr { top: -10px; right: -70px; width: 380px; transform: scaleX(-1) rotate(-12deg); }.fwh-zanzibar .leaf-bl { bottom: -70px; left: 10px; width: 290px; transform: rotate(40deg); }.fwh-zanzibar .leaf-br { bottom: -50px; right: -10px; width: 310px; transform: scaleX(-1) rotate(40deg); }.fwh-zanzibar .hero-content { position: relative; z-index: 2; max-width: 880px; }.fwh-zanzibar .hero .crumbs {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--fwh-mint);
+  margin-bottom: 28px;
+}.fwh-zanzibar .hero .crumbs a { color: var(--fwh-mint); text-decoration: none; opacity: 0.8; }.fwh-zanzibar .hero .crumbs a:hover { opacity: 1; }.fwh-zanzibar .hero .arabic-greeting {
+  font-family: 'Aref Ruqaa', serif;
+  font-size: clamp(26px, 3.5vw, 38px);
+  color: var(--fwh-marigold);
+  display: block;
+  margin-bottom: 14px;
+  letter-spacing: 0.02em;
+}.fwh-zanzibar .hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(70px, 14vw, 180px);
+  letter-spacing: 0.01em;
+  color: var(--fwh-cream);
+  line-height: 0.88;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}.fwh-zanzibar .hero .subtitle {
+  font-family: 'Caveat Brush', cursive;
+  font-size: clamp(34px, 5vw, 60px);
+  color: var(--fwh-magenta);
+  display: inline-block;
+  transform: rotate(-3deg);
+  margin: 8px 0 0;
+}.fwh-zanzibar .hero .meta {
+  margin-top: 38px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 22px 36px;
+  color: var(--fwh-cream);
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 17px;
+  font-weight: 500;
+}.fwh-zanzibar .hero .meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}.fwh-zanzibar .hero .meta .dot {
+  width: 6px; height: 6px;
+  background: var(--fwh-marigold);
+  border-radius: 50%;
+}.fwh-zanzibar .hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 44px;
+  background: var(--fwh-magenta);
+  border: 3px solid var(--fwh-cream);
+  outline: 2px solid var(--fwh-magenta);
+  outline-offset: 4px;
+  padding: 16px 40px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.14em;
+  color: var(--fwh-cream);
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 6px 6px 0 var(--fwh-crimson);
+  transition: transform 0.2s, box-shadow 0.2s;
+}.fwh-zanzibar .hero-cta:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 var(--fwh-crimson);
+}/* Scroll cue */.fwh-zanzibar .scroll-cue {
+  position: absolute;
+  bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Caveat Brush', cursive;
+  color: var(--fwh-cream);
+  opacity: 0.55;
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  z-index: 3;
+}/* ========================================
+   INVITATION — the pitch in calm space
+   ======================================== */.fwh-zanzibar .invitation {
+  background: var(--fwh-cream);
+  border: 10px solid var(--fwh-marigold);
+  padding: 110px 40px 120px;
+  position: relative;
+}.fwh-zanzibar .invitation::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 18% 22%, rgba(45,90,61,0.05) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 78% 64%, rgba(200,16,46,0.04) 1.5px, transparent 1.5px);
+  background-size: 22px 22px, 30px 30px;
+  pointer-events: none;
+}.fwh-zanzibar .invitation-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}.fwh-zanzibar .invitation .arabic-flourish {
+  font-family: 'Aref Ruqaa', serif;
+  font-size: 38px;
+  color: var(--fwh-forest);
+  display: block;
+  margin-bottom: 14px;
+}.fwh-zanzibar .invitation h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(44px, 6vw, 72px);
+  color: var(--fwh-forest);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 0.95;
+  margin-bottom: 10px;
+}.fwh-zanzibar .invitation .h2-script {
+  font-family: 'Caveat Brush', cursive;
+  font-size: clamp(40px, 5.5vw, 60px);
+  color: var(--fwh-magenta);
+  display: inline-block;
+  transform: rotate(-3deg);
+  margin-bottom: 36px;
+}.fwh-zanzibar .invitation .lead {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(20px, 2.4vw, 26px);
+  color: var(--fwh-crimson);
+  line-height: 1.45;
+  margin-bottom: 26px;
+}.fwh-zanzibar .invitation p {
+  font-family: 'Manrope', sans-serif;
+  font-size: 17px;
+  color: var(--fwh-ink);
+  line-height: 1.75;
+  max-width: 640px;
+  margin: 0 auto 16px;
+}.fwh-zanzibar .invitation-divider {
+  margin: 50px auto 0;
+  width: 80px; height: 4px;
+  background: var(--fwh-magenta);
+}.fwh-zanzibar .invitation-orange {
+  position: absolute;
+  bottom: 30px; right: 40px;
+  width: 120px; height: 120px;
+  pointer-events: none;
+  opacity: 0.95;
+}.fwh-zanzibar .invitation-eye {
+  position: absolute;
+  top: 40px; left: 40px;
+  width: 60px; height: 60px;
+  pointer-events: none;
+  opacity: 0.85;
+}/* ========================================
+   JOURNEY — the program as poetry, not a checklist
+   ======================================== */.fwh-zanzibar .journey {
+  background: var(--fwh-deep-teal);
+  border: 10px solid var(--fwh-marigold);
+  padding: 110px 40px 120px;
+  position: relative;
+  overflow: hidden;
+}.fwh-zanzibar .journey::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 8% 18%, rgba(232,178,45,0.10) 0%, transparent 45%),
+    radial-gradient(ellipse at 92% 82%, rgba(233,75,124,0.10) 0%, transparent 45%);
+  pointer-events: none;
+}.fwh-zanzibar .journey-inner { max-width: 1100px; margin: 0 auto; position: relative; }.fwh-zanzibar .journey-header {
+  text-align: center;
+  margin-bottom: 64px;
+}.fwh-zanzibar .journey-header h2 {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3em;
+}.fwh-zanzibar .journey-header .serif {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(50px, 7vw, 80px);
+  color: var(--fwh-cream);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}.fwh-zanzibar .journey-header .script {
+  font-family: 'Caveat Brush', cursive;
+  font-size: clamp(40px, 5.5vw, 60px);
+  color: var(--fwh-marigold);
+  display: inline-block;
+  transform: translateY(8px) rotate(-3deg);
+}.fwh-zanzibar .journey-arabic {
+  display: block;
+  font-family: 'Aref Ruqaa', serif;
+  font-size: 26px;
+  color: var(--fwh-mint);
+  margin-top: 14px;
+  letter-spacing: 0.02em;
+}.fwh-zanzibar .journey-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 80px;
+  max-width: 880px;
+  margin: 0 auto;
+}.fwh-zanzibar .journey-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 18px;
+  align-items: baseline;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(245,239,224,0.18);
+}.fwh-zanzibar .journey-item .marker {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--fwh-marigold);
+  line-height: 1;
+}.fwh-zanzibar .journey-item .text {
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--fwh-cream);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+}.fwh-zanzibar .journey-item .text em {
+  font-family: 'Caveat Brush', cursive;
+  font-style: normal;
+  color: var(--fwh-magenta);
+  font-size: 1.15em;
+  margin-left: 2px;
+}.fwh-zanzibar .journey-decor-eye {
+  position: absolute;
+  top: 70px;
+  right: 40px;
+  width: 56px;
+  opacity: 0.7;
+  pointer-events: none;
+}/* ========================================
+   SIGNATURE — the Soul Star moment, big and bold
+   ======================================== */.fwh-zanzibar .signature {
+  background: var(--fwh-cream);
+  padding: 60px 30px;
+}.fwh-zanzibar .signature-inner {
+  background: var(--fwh-cream);
+  border: 12px solid var(--fwh-crimson);
+  outline: 2px solid var(--fwh-crimson);
+  outline-offset: 8px;
+  padding: 70px 60px;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+}.fwh-zanzibar .signature::before {
+  content: ""; position: absolute; inset: 0;
+  pointer-events: none;
+}.fwh-zanzibar .signature-tag {
+  font-family: 'Caveat Brush', cursive;
+  font-size: 32px;
+  color: var(--fwh-magenta);
+  display: inline-block;
+  transform: rotate(-3deg);
+  margin-bottom: 12px;
+}.fwh-zanzibar .signature h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(54px, 8vw, 96px);
+  color: var(--fwh-crimson);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 0.95;
+  margin-bottom: 8px;
+}.fwh-zanzibar .signature h2 .star {
+  display: inline-block;
+  color: var(--fwh-marigold);
+  transform: translateY(-4px);
+  font-size: 0.7em;
+  margin: 0 4px;
+}.fwh-zanzibar .signature .h2-sub {
+  font-family: 'Caveat Brush', cursive;
+  font-size: clamp(34px, 4.5vw, 50px);
+  color: var(--fwh-magenta);
+  display: inline-block;
+  transform: rotate(-3deg);
+  margin-bottom: 30px;
+}.fwh-zanzibar .signature p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(18px, 2.2vw, 22px);
+  color: var(--fwh-ink);
+  line-height: 1.55;
+  max-width: 660px;
+  margin: 0 auto 14px;
+}.fwh-zanzibar .signature .arabic-tag {
+  font-family: 'Aref Ruqaa', serif;
+  font-size: 28px;
+  color: var(--fwh-forest);
+  display: block;
+  margin-top: 28px;
+}.fwh-zanzibar .signature-decor {
+  position: absolute;
+  pointer-events: none;
+  width: 80px;
+}.fwh-zanzibar .signature-decor.tl { top: -30px; left: -30px; transform: rotate(-25deg); }.fwh-zanzibar .signature-decor.br { bottom: -30px; right: -30px; transform: rotate(155deg); }/* ========================================
+   STAY + INCLUDED — practical, calm, paired
+   ======================================== */.fwh-zanzibar .included {
+  background: var(--fwh-cream);
+  border-top: 10px solid var(--fwh-marigold);
+  border-bottom: 10px solid var(--fwh-marigold);
+  padding: 90px 40px;
+  position: relative;
+}.fwh-zanzibar .included-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}.fwh-zanzibar .included-block h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: 30px;
+  color: var(--fwh-forest);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}.fwh-zanzibar .included-block .h3-script {
+  font-family: 'Caveat Brush', cursive;
+  font-size: 30px;
+  color: var(--fwh-magenta);
+  display: inline-block;
+  transform: rotate(-2deg);
+  margin-bottom: 24px;
+}.fwh-zanzibar .included-block ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}.fwh-zanzibar .included-block li {
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--fwh-ink);
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(45,90,61,0.18);
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}.fwh-zanzibar .included-block li::before {
+  content: "✦";
+  color: var(--fwh-magenta);
+  font-size: 14px;
+  flex-shrink: 0;
+}.fwh-zanzibar .included-block li:last-child { border-bottom: none; }.fwh-zanzibar .included-where { font-family: 'Caveat Brush', cursive; font-size: 0.9em; color: var(--fwh-magenta); margin-left: 6px; }/* ========================================
+   FINAL CTA — the close
+   ======================================== */.fwh-zanzibar .final-cta {
+  background: var(--fwh-magenta);
+  border: 12px solid var(--fwh-marigold);
+  outline: 4px solid var(--fwh-crimson);
+  outline-offset: -20px;
+  padding: 100px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}.fwh-zanzibar .final-cta::before {
+  content: ""; position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 22% 32%, rgba(255,255,255,0.07) 0, rgba(255,255,255,0.07) 2px, transparent 2px),
+    radial-gradient(circle at 72% 78%, rgba(255,255,255,0.07) 0, rgba(255,255,255,0.07) 2px, transparent 2px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}.fwh-zanzibar .final-cta-inner { position: relative; max-width: 700px; margin: 0 auto; }.fwh-zanzibar .final-cta .accent {
+  font-family: 'Caveat Brush', cursive;
+  font-size: clamp(40px, 5.5vw, 64px);
+  color: var(--fwh-marigold);
+  display: inline-block;
+  transform: rotate(-3deg);
+  margin-bottom: 6px;
+}.fwh-zanzibar .final-cta h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(46px, 7.5vw, 92px);
+  color: var(--fwh-cream);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  margin-bottom: 22px;
+}.fwh-zanzibar .final-cta p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--fwh-cream);
+  font-size: 19px;
+  margin-bottom: 36px;
+  line-height: 1.5;
+}.fwh-zanzibar .cta-sep {
+  margin: 32px auto 22px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--fwh-cream);
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: center;
+}.fwh-zanzibar .cta-sep::before, .fwh-zanzibar .cta-sep::after {
+  content: "";
+  width: 36px;
+  height: 1px;
+  background: currentColor;
+}.fwh-zanzibar .cta-direct {
+  display: inline-flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  justify-content: center;
+}.fwh-zanzibar .cta-direct a {
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fwh-cream);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(251, 238, 220, 0.4);
+  padding-bottom: 4px;
+  transition: color 0.2s, border-color 0.2s;
+}.fwh-zanzibar .cta-direct a:hover {
+  color: var(--fwh-marigold);
+  border-color: var(--fwh-marigold);
+}.fwh-zanzibar .final-cta .arabic-sign {
+  font-family: 'Aref Ruqaa', serif;
+  font-size: clamp(26px, 3.5vw, 38px);
+  color: var(--fwh-marigold);
+  margin-top: 40px;
+  display: block;
+}.fwh-zanzibar .final-cta .organizer {
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fwh-cream);
+  opacity: 0.7;
+  margin-top: 18px;
+  display: block;
+}/* ========================================
+   RESPONSIVE
+   ======================================== */@media (max-width: 900px) {.fwh-zanzibar .included-inner { grid-template-columns: 1fr; gap: 50px; }.fwh-zanzibar .leaf-tl, .fwh-zanzibar .leaf-tr, .fwh-zanzibar .leaf-bl, .fwh-zanzibar .leaf-br { width: 200px; opacity: 0.45; }.fwh-zanzibar .journey-grid { grid-template-columns: 1fr; gap: 4px; max-width: 560px; }}@media (max-width: 600px) {.fwh-zanzibar { line-height: 1.55; }.fwh-zanzibar .hero {
+    border-width: 6px;
+    outline: none;
+    padding: 60px 18px 70px;
+    min-height: 80vh;
+  }.fwh-zanzibar .hero-leaves { display: none; }.fwh-zanzibar .hero h1 { font-size: 64px; letter-spacing: 0; }.fwh-zanzibar .hero .subtitle { font-size: 32px; }.fwh-zanzibar .hero .arabic-greeting { font-size: 22px; }.fwh-zanzibar .hero .meta { font-size: 14px; gap: 12px 22px; margin-top: 30px; }.fwh-zanzibar .hero-cta { padding: 14px 28px; font-size: 15px; box-shadow: 4px 4px 0 var(--fwh-crimson); margin-top: 36px; }.fwh-zanzibar .scroll-cue { display: none; }.fwh-zanzibar .invitation { border-width: 6px; padding: 70px 22px; }.fwh-zanzibar .invitation h2 { font-size: 38px; }.fwh-zanzibar .invitation .h2-script { font-size: 34px; margin-bottom: 28px; }.fwh-zanzibar .invitation .lead { font-size: 18px; }.fwh-zanzibar .invitation p { font-size: 15.5px; }.fwh-zanzibar .invitation-orange { width: 70px; height: 70px; bottom: 14px; right: 14px; }.fwh-zanzibar .invitation-eye { width: 40px; top: 20px; left: 20px; }.fwh-zanzibar .journey { border-width: 6px; padding: 70px 18px 80px; }.fwh-zanzibar .journey-header { margin-bottom: 40px; }.fwh-zanzibar .journey-header .serif { font-size: 44px; }.fwh-zanzibar .journey-header .script { font-size: 38px; }.fwh-zanzibar .journey-arabic { font-size: 20px; }.fwh-zanzibar .journey-item { padding: 14px 0; }.fwh-zanzibar .journey-item .text { font-size: 16.5px; }.fwh-zanzibar .journey-item .marker { font-size: 18px; }.fwh-zanzibar .journey-decor-eye { display: none; }.fwh-zanzibar .signature { padding: 30px 14px; }.fwh-zanzibar .signature-inner { border-width: 6px; outline-offset: 4px; padding: 50px 26px; }.fwh-zanzibar .signature-tag { font-size: 26px; }.fwh-zanzibar .signature h2 { font-size: 44px; }.fwh-zanzibar .signature .h2-sub { font-size: 30px; margin-bottom: 24px; }.fwh-zanzibar .signature p { font-size: 17px; }.fwh-zanzibar .signature .arabic-tag { font-size: 22px; margin-top: 22px; }.fwh-zanzibar .signature-decor { width: 60px; }.fwh-zanzibar .included { border-width: 6px; padding: 60px 22px; }.fwh-zanzibar .included-block h3 { font-size: 26px; }.fwh-zanzibar .included-block .h3-script { font-size: 26px; margin-bottom: 18px; }.fwh-zanzibar .included-block li { font-size: 16px; padding: 10px 0; }.fwh-zanzibar .final-cta { border-width: 6px; outline: none; padding: 70px 22px; }.fwh-zanzibar .final-cta h2 { font-size: 42px; }.fwh-zanzibar .final-cta .accent { font-size: 36px; }.fwh-zanzibar .cta-direct { gap: 18px; }.fwh-zanzibar .cta-direct a { font-size: 12px; }.fwh-zanzibar .final-cta .arabic-sign { font-size: 24px; margin-top: 28px; }}@media (max-width: 380px) {.fwh-zanzibar .hero h1 { font-size: 54px; }.fwh-zanzibar .hero .subtitle { font-size: 28px; }.fwh-zanzibar .invitation h2 { font-size: 32px; }.fwh-zanzibar .signature h2 { font-size: 36px; }.fwh-zanzibar .final-cta h2 { font-size: 36px; }}
+</style>
+<div class="fwh-zanzibar">
+
+
+<!-- ============================ HERO ============================ -->
+<section class="hero section">
+  <div class="hero-leaves">
+    <svg class="leaf-tl" viewBox="0 0 200 240" aria-hidden="true">
+      <path d="M 100 10 Q 60 60 50 130 Q 45 200 100 230 Q 100 200 95 170 Q 88 130 92 90 Q 95 50 100 10 Z" fill="#A22F0E"/>
+      <path d="M 100 10 Q 130 30 150 70 Q 165 110 160 160 Q 155 200 100 230 Q 100 200 105 170 Q 110 130 105 90 Q 102 50 100 10 Z" fill="#D85426"/>
+      <line x1="100" y1="10" x2="100" y2="230" stroke="#5E2308" stroke-width="2"/>
+    </svg>
+    <svg class="leaf-tr" viewBox="0 0 200 240" aria-hidden="true">
+      <path d="M 100 10 Q 60 60 50 130 Q 45 200 100 230 Q 100 200 95 170 Q 88 130 92 90 Q 95 50 100 10 Z" fill="#A22F0E"/>
+      <path d="M 100 10 Q 130 30 150 70 Q 165 110 160 160 Q 155 200 100 230 Q 100 200 105 170 Q 110 130 105 90 Q 102 50 100 10 Z" fill="#E58A1F"/>
+      <line x1="100" y1="10" x2="100" y2="230" stroke="#5E2308" stroke-width="2"/>
+    </svg>
+    <svg class="leaf-bl" viewBox="0 0 200 240" aria-hidden="true">
+      <path d="M 100 10 Q 60 60 50 130 Q 45 200 100 230 Q 100 200 95 170 Q 88 130 92 90 Q 95 50 100 10 Z" fill="#D85426"/>
+      <path d="M 100 10 Q 130 30 150 70 Q 165 110 160 160 Q 155 200 100 230 Q 100 200 105 170 Q 110 130 105 90 Q 102 50 100 10 Z" fill="#F2B33A"/>
+    </svg>
+    <svg class="leaf-br" viewBox="0 0 200 240" aria-hidden="true">
+      <path d="M 100 10 Q 60 60 50 130 Q 45 200 100 230 Q 100 200 95 170 Q 88 130 92 90 Q 95 50 100 10 Z" fill="#A22F0E"/>
+      <path d="M 100 10 Q 130 30 150 70 Q 165 110 160 160 Q 155 200 100 230 Q 100 200 105 170 Q 110 130 105 90 Q 102 50 100 10 Z" fill="#D85426"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="crumbs">
+      <a href="#">All Events</a> &nbsp;·&nbsp; A Retreat to Your Heart
+    </div>
+    <span class="arabic-greeting" dir="rtl" lang="ar">رحلة إلى القلب</span>
+    <h1>Zanzibar</h1>
+    <span class="subtitle">a return to your roots</span>
+
+    <div class="meta">
+      <span><span class="dot"></span> 7 — 14 August 2026</span>
+      <span><span class="dot"></span> 8 days</span>
+      <span><span class="dot"></span> Africa, Tanzania</span>
+    </div>
+
+    <a href="#register" class="hero-cta">Reserve Your Spot</a>
+  </div>
+
+  <div class="scroll-cue">↓ scroll the journey</div>
+</section>
+
+<!-- ========================= INVITATION ========================= -->
+<section class="invitation section">
+
+  <svg class="invitation-eye" viewBox="0 0 100 100" fill="none" stroke="#8C2A4A" stroke-width="2.5" stroke-linejoin="round" aria-hidden="true">
+    <path d="M10 50 Q50 14 90 50 Q50 86 10 50 Z"/>
+    <circle cx="50" cy="50" r="14"/>
+    <circle cx="50" cy="50" r="5" fill="#8C2A4A" stroke="none"/>
+  </svg>
+
+  <div class="invitation-inner">
+    <span class="arabic-flourish" dir="rtl" lang="ar">كان يا مكان</span>
+    <h2>Not just a trip</h2>
+    <span class="h2-script">it's a homecoming</span>
+    <p class="lead">Between the rhythm of the earth, the depth of nature, and the calm of the sea — Zanzibar opens a space where you can hear your true voice again.</p>
+    <p>A heart-centered retreat to release stress, restore balance, and live at a slower, deeper, more authentic pace. Eight days surrounded by the warmth of an Arab community moving at the speed of the soul.</p>
+    <div class="invitation-divider"></div>
+  </div>
+
+  <svg class="invitation-orange" viewBox="0 0 100 100" fill="none" stroke="#D85426" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+    <circle cx="38" cy="58" r="22"/>
+    <circle cx="38" cy="58" r="3" fill="#D85426" stroke="none"/>
+    <path d="M38 36 Q44 22 58 20"/>
+    <ellipse cx="54" cy="22" rx="10" ry="4" transform="rotate(-20 54 22)"/>
+    <circle cx="70" cy="68" r="13"/>
+    <circle cx="70" cy="68" r="2.5" fill="#D85426" stroke="none"/>
+  </svg>
+
+</section>
+
+<!-- ========================= JOURNEY ========================= -->
+<section class="journey section">
+
+  <svg class="journey-decor-eye" viewBox="0 0 100 100" fill="none" stroke="#D85426" stroke-width="2.5" stroke-linejoin="round" aria-hidden="true">
+    <path d="M10 50 Q50 14 90 50 Q50 86 10 50 Z"/>
+    <circle cx="50" cy="50" r="14"/>
+    <circle cx="50" cy="50" r="5" fill="#D85426" stroke="none"/>
+  </svg>
+
+  <div class="journey-inner">
+    <header class="journey-header">
+      <h2>
+        <span class="serif">The</span><span class="script">Journey</span>
+      </h2>
+      <span class="journey-arabic" dir="rtl" lang="ar">رحلة الروح</span>
+    </header>
+
+    <div class="journey-grid">
+      <div class="journey-item"><span class="marker">i.</span><span class="text">Blue Safari boat trip & visits to <em>stunning</em> islands</span></div>
+      <div class="journey-item"><span class="marker">ii.</span><span class="text">Walking into the hidden Kuza Cave</span></div>
+      <div class="journey-item"><span class="marker">iii.</span><span class="text">Local drumming experience under <em>open sky</em></span></div>
+      <div class="journey-item"><span class="marker">iv.</span><span class="text">Giant tortoises & Prison Island</span></div>
+      <div class="journey-item"><span class="marker">v.</span><span class="text">Jeep safari adventure</span></div>
+      <div class="journey-item"><span class="marker">vi.</span><span class="text">Sound healing with <em>Duaa</em> to restore balance</span></div>
+      <div class="journey-item"><span class="marker">vii.</span><span class="text">Meditative beach dancing at sunset</span></div>
+      <div class="journey-item"><span class="marker">viii.</span><span class="text">Yoga sessions by the beach</span></div>
+      <div class="journey-item"><span class="marker">ix.</span><span class="text">A walk through the monkey forest</span></div>
+      <div class="journey-item"><span class="marker">x.</span><span class="text">Dinner at the famous <em>The Rock</em></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= SIGNATURE ========================= -->
+<section class="signature section">
+  <div class="signature-inner">
+
+    <svg class="signature-decor tl" viewBox="0 0 100 100" aria-hidden="true">
+      <g fill="#E58A1F">
+        <ellipse cx="50" cy="30" rx="6" ry="14"/>
+        <ellipse cx="70" cy="50" rx="14" ry="6"/>
+        <ellipse cx="50" cy="70" rx="6" ry="14"/>
+        <ellipse cx="30" cy="50" rx="14" ry="6"/>
+      </g>
+      <circle cx="50" cy="50" r="6" fill="#F2B33A"/>
+    </svg>
+    <svg class="signature-decor br" viewBox="0 0 100 100" aria-hidden="true">
+      <g fill="#E58A1F">
+        <ellipse cx="50" cy="30" rx="6" ry="14"/>
+        <ellipse cx="70" cy="50" rx="14" ry="6"/>
+        <ellipse cx="50" cy="70" rx="6" ry="14"/>
+        <ellipse cx="30" cy="50" rx="14" ry="6"/>
+      </g>
+      <circle cx="50" cy="50" r="6" fill="#F2B33A"/>
+    </svg>
+
+    <span class="signature-tag">a Fly With Haifa signature</span>
+    <h2><span class="star">✦</span> Soul Star <span class="star">✦</span></h2>
+    <span class="h2-sub">your inner compass</span>
+    <p>Designed to release anxiety, melt stress, and bring you back to your inner balance — woven through the retreat as the spine of every quiet moment.</p>
+    <span class="arabic-tag" dir="rtl" lang="ar">عودة للروح</span>
+  </div>
+</section>
+
+<!-- ========================= INCLUDED + STAY ========================= -->
+<section class="included section">
+  <div class="included-inner">
+
+    <div class="included-block">
+      <h3>Where you'll stay</h3>
+      <span class="h3-script">your home by the sea</span>
+      <ul>
+        <li>Dongwe Club Resort <span class="included-where">— beachside</span></li>
+        <li>Blue Ocean Hotel <span class="included-where">— where the sea begins</span></li>
+      </ul>
+    </div>
+
+    <div class="included-block">
+      <h3>What's included</h3>
+      <span class="h3-script">everything taken care of</span>
+      <ul>
+        <li>Accommodation across both resorts</li>
+        <li>All transportation & airport transfers</li>
+        <li>Every excursion & activity in the journey</li>
+        <li>All healing & yoga sessions</li>
+        <li>Meals throughout the eight days</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========================= FINAL CTA ========================= -->
+<section class="final-cta section" id="register">
+  <div class="final-cta-inner">
+    <span class="accent">come home to yourself</span>
+    <h2>Reserve Your Spot</h2>
+    <p>Eight days of return. Limited places — write a note and we'll hold one for you.</p>
+
+    <div class="cta-sep">or — reach out directly</div>
+
+    <div class="cta-direct">
+      <a href="mailto:haifa@flywithhaifa.com">haifa@flywithhaifa.com</a>
+      <a href="https://instagram.com/flywithhaifa" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://youtube.com/@flywithhaifa" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://tiktok.com/@flywithhaifa" target="_blank" rel="noopener">TikTok</a>
+    </div>
+
+    <span class="arabic-sign" dir="rtl" lang="ar">حلوة الحياة</span>
+    <span class="organizer">
+      Organized by Fly With Haifa
+    </span>
+  </div>
+</section>
+
+
+</div>

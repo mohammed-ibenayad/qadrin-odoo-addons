@@ -9,7 +9,7 @@ custom raw HTML pasted into a per-event field. The sidebar
 normal position to the right.
     """,
     'author': 'Custom',
-    'version': '18.0.1.5.0',
+    'version': '18.0.1.5.1',
     'license': 'LGPL-3',
     'category': 'Marketing/Events',
     'depends': ['website_event'],

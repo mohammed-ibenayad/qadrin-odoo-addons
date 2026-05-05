@@ -10,16 +10,15 @@
                     <div class="alert alert-info" role="status" colspan="2">
                         <strong>Paste raw HTML below.</strong>
                         Whatever you paste is stored verbatim and rendered
-                        on the public event page, below the description, in
-                        the wide left column.
+                        on the public event page, below the description.
                         <br/>
                         Do <em>not</em> paste a full HTML document
                         (<code>&lt;!DOCTYPE&gt;</code>, <code>&lt;html&gt;</code>,
                         <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>) —
                         only the body content, plus any
                         <code>&lt;link&gt;</code> and <code>&lt;style&gt;</code>
-                        tags you need. CSS should be scoped under a wrapper
-                        class so it doesn't leak into the rest of the site.
+                        tags you need. Scope your CSS under a wrapper class
+                        so it doesn't leak into the rest of the site.
                     </div>
                     <field name="embed_html"
                            nolabel="1"

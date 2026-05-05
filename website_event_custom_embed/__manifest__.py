@@ -9,12 +9,13 @@ column of the event detail page (next to the Location/Organizer
 sidebar). The default Odoo description field strips iframes and
 scripts; this field does not.
 
-The field uses a plain textarea (not the rich-text editor) so pasted
-HTML is preserved exactly as-is — no entity escaping, no auto-tag
-fixing, no wrapping in <p> tags.
+Stored as a plain Text field (no rich-text editor) so pasted HTML is
+preserved exactly as-is. A computed Html field wraps the raw text in
+markupsafe.Markup() server-side so QWeb renders it verbatim on the
+public page.
     """,
     'author': 'Custom',
-    'version': '18.0.1.1.0',
+    'version': '18.0.1.2.0',
     'license': 'LGPL-3',
     'category': 'Marketing/Events',
     'depends': ['website_event'],

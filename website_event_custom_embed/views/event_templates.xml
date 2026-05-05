@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!--
+      Inject the embed below the event description on the public detail
+      page. The rendered field `embed_html_safe` is computed in Python
+      and wrapped with markupsafe.Markup() there — we can't call
+      Markup() inside QWeb expressions because `markupsafe` isn't in
+      the QWeb evaluation namespace.
+
+      We gate visibility on the raw `embed_html` field so the wrapper
+      div only appears when there's content. `embed_html_safe` is False
+      in that case, so t-out emits nothing either way; gating just
+      prevents an empty wrapper div in the DOM.
+    -->
     <template id="event_description_full_inherit_embed"
               inherit_id="website_event.event_description_full"
               name="Event Page: Custom Embed">
@@ -7,7 +19,7 @@
             <div t-if="event.embed_html"
                  class="o_wevent_event_custom_embed mt-4"
                  id="o_wevent_event_custom_embed">
-                <t t-out="markupsafe.Markup(event.embed_html)"/>
+                <t t-out="event.embed_html_safe"/>
             </div>
         </xpath>
     </template>

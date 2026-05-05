@@ -10,15 +10,88 @@
                     <div class="alert alert-info" role="status" colspan="2">
                         <strong>Paste raw HTML below.</strong>
                         Whatever you paste is stored verbatim and rendered
-                        on the public event page, below the description.
-                        <br/>
-                        Do <em>not</em> paste a full HTML document
+                        on the public event page, in place of the description.
+                        The Odoo sidebar (Register, dates, location, share)
+                        keeps its normal position to the right.
+                        <br/><br/>
+                        <strong>Do not paste a full HTML document</strong>
                         (<code>&lt;!DOCTYPE&gt;</code>, <code>&lt;html&gt;</code>,
                         <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>) —
-                        only the body content, plus any
+                        only body content, plus any
                         <code>&lt;link&gt;</code> and <code>&lt;style&gt;</code>
-                        tags you need. Scope your CSS under a wrapper class
-                        so it doesn't leak into the rest of the site.
+                        tags you need.
+                        <br/><br/>
+                        <strong>Construction rules</strong> (the embed lives
+                        inside a ~2/3-width column next to the sidebar — design
+                        for that, not for a full page):
+                        <ol class="mb-0 mt-1">
+                            <li>
+                                <strong>Wrap everything in a single class</strong>
+                                (e.g. <code>&lt;div class="my-event"&gt;…&lt;/div&gt;</code>)
+                                and prefix every CSS selector with that class
+                                (<code>.my-event h1 { … }</code>, never bare
+                                <code>h1</code>, <code>body</code>,
+                                <code>html</code>, or <code>*</code>). Unscoped
+                                rules leak into the rest of the site.
+                            </li>
+                            <li>
+                                <strong>Do not use <code>vw</code> /
+                                <code>vh</code> units</strong> for sizing.
+                                They resolve against the page viewport, not
+                                the column, so a headline at <code>14vw</code>
+                                wants to be page-wide and breaks the layout.
+                                Use <code>%</code>, <code>em</code>,
+                                <code>rem</code>, or <code>px</code>. If you
+                                want column-relative sizing, the wrapper is a
+                                container — use <code>cqi</code> /
+                                <code>cqw</code> instead of <code>vw</code>.
+                            </li>
+                            <li>
+                                <strong>No fixed pixel widths or
+                                <code>min-width</code></strong> on outer
+                                wrappers (<code>min-width: 1200px</code>,
+                                <code>width: 1400px</code>, etc.). Outer
+                                blocks should be fluid: <code>width: 100%</code>
+                                with <code>max-width</code> caps if needed.
+                            </li>
+                            <li>
+                                <strong>Avoid <code>min-height: 90vh</code></strong>
+                                and similar viewport-tied heights — they make
+                                hero sections taller than the sidebar and
+                                create awkward whitespace next to it. Prefer
+                                fixed <code>min-height</code> in
+                                <code>px</code>/<code>rem</code>, or let
+                                content drive the height.
+                            </li>
+                            <li>
+                                <strong>Bare <code>&lt;section&gt;</code>
+                                tags get neutralized</strong> (margins reset,
+                                width auto) so partial-page embeds don't
+                                misbehave. If you need full control over a
+                                <code>&lt;section&gt;</code>, give it a class
+                                and style that class instead.
+                            </li>
+                            <li>
+                                <strong>Don't import a full CSS framework</strong>
+                                (Tailwind, Bootstrap, etc.) via
+                                <code>&lt;link&gt;</code>. It will fight Odoo's
+                                own Bootstrap. Inline only the rules you need.
+                            </li>
+                            <li>
+                                <strong>External fonts via Google Fonts /
+                                <code>&lt;link&gt;</code> are fine</strong> —
+                                they're scoped to the
+                                <code>font-family</code> declarations in your
+                                rules.
+                            </li>
+                            <li>
+                                <strong>Test at desktop and mobile</strong>
+                                widths after pasting. Container queries work:
+                                <code>@container (max-width: 600px) { … }</code>
+                                inside your scoped rules will respond to the
+                                column width directly.
+                            </li>
+                        </ol>
                     </div>
                     <field name="embed_html"
                            nolabel="1"

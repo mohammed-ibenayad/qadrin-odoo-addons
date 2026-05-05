@@ -1,28 +1,32 @@
 // =============================================================================
 // Custom embed layout.
 //
-// Odoo 18 website_event renders the event detail page like this:
-//   .row
-//     > div.col.pe-xxl-5            // left flex column (no id)
-//         > #o_wevent_event_main_col   // inner wrapper holding description/embed
-//     > aside#o_wevent_event_main_sidebar.col-lg-4   // Register / dates / share
+// Two problems to solve:
 //
-// When the embed contains content with intrinsic width (tables, fixed-width
-// blocks, long unbroken strings, etc.), the left `.col` (which is
-// `flex: 1 0 0%` with the default `min-width: auto`) refuses to shrink below
-// its content, pushing the col-lg-4 aside down to the next row.
+// 1. Flex column refuses to shrink. The Odoo event page row has a `.col`
+//    (flex: 1 0 0%) next to a `.col-lg-4` sidebar. With `min-width: auto`
+//    the left col grows to its content's intrinsic min-content size, and
+//    if any descendant is wider than the col's allotment the sidebar wraps
+//    onto a new row. We force `min-width: 0` on every direct child of the
+//    `.row` containing the embed so it shrinks to fit.
 //
-// Fix: scope to event main pages where the embed wrapper exists, then
-//   1. force `min-width: 0` on the real flex column so it shrinks to fit,
-//   2. clamp the embed wrapper so its contents can't overflow horizontally.
+// 2. Embeds use viewport-relative units. Embeds designed for full-page
+//    width often size things in `vw`/`vh` — e.g.
+//    `font-size: clamp(70px, 14vw, 180px)` or `min-height: 90vh`. Those
+//    are calculated from the page viewport, not the column the embed
+//    lives in, so a single headline can want to be ~1400px wide inside a
+//    700px column. With `min-width: auto` (default) on the column, that
+//    intrinsic content width forces the column wider and pushes the
+//    sidebar onto a new row.
+//
+//    Fix: apply `contain: layout paint` on the embed wrapper so the
+//    embed's layout cannot propagate up the tree, and `overflow: hidden`
+//    so visually-overflowing content (e.g. an oversized headline) is
+//    clipped at the column's edge instead of bleeding into the sidebar.
+//    Combined with `min-width: 0` on the column, the column can now
+//    shrink to its allotted share regardless of intrinsic content size.
 // =============================================================================
 
-// Reach the real flex column without assuming its class. Any direct child of
-// the `.row` that contains the embed gets `min-width: 0` so it can shrink to
-// fit the row instead of forcing the col-lg-4 sidebar onto a new line.
-// `overflow: hidden` is a belt-and-braces guard for embeds whose own CSS
-// declares fixed widths or `min-width` on inner elements.
-// `:has()` is supported on every browser Odoo 18 targets (Baseline 2023).
 .row:has(.o_wevent_event_custom_embed) > * {
     min-width: 0;
 }
@@ -40,6 +44,14 @@
     position: relative;
     box-sizing: border-box;
     min-width: 0;
+
+    // Layout containment: the embed's intrinsic sizing (oversized vw-based
+    // headlines, etc.) cannot affect the column's width.
+    contain: layout paint;
+
+    // Establishes an inline-size container so descendants can use cqi/cqw
+    // instead of vw if they want to be column-aware.
+    container-type: inline-size;
 
     *,
     *::before,
